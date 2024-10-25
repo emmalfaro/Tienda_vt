@@ -1,10 +1,12 @@
 /*Se crea la base de datos */
 drop schema if exists techshop;
 drop user if exists usuario_prueba;
+drop user if exists usuario_reportes;
 CREATE SCHEMA techshop ;
 
 /*Se crea un usuario para la base de datos llamado "usuario_prueba" y tiene la contraseña "Usuario_Clave."*/
 create user 'usuario_prueba'@'%' identified by 'Usuar1o_Clave.';
+create user 'usuario_reportes'@'%' identified by 'Usuar1o_Reportes.';
 
 /*Se asignan los prvilegios sobr ela base de datos TechShop al usuario creado */
 grant all privileges on techshop.* to 'usuario_prueba'@'%';
