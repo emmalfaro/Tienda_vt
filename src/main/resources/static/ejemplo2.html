@@ -6,31 +6,52 @@ Mi primera pagina html
     <head>
         <title>TechShop</title>
         <meta charset="UTF-8">
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
+
     </head>
-    <body style="background-color: #ebcfda;font-family: sans-serif">
-        <a href="index.html">&triangleleft;</a>
-        <a href="ejemplo3.html">&triangleright;</a>
+    <body>
         
-        <h1 style="text-align: center;background-color: #ff4b93;color: white">Ejemplo 2</h1>
-        <h2>Uso de listas</h2>
+        <header>
+            <nav class="navegacion">
+                <a class="nav-link logo" href="index.html">TechShop</a>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="ejemplo2.html">Ejemplo 2</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="ejemplo3.html">Ejemplo 3</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="audio.html">Audios</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="video.html">Videos</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="iframe.html">iFrames</a></li>
+                </ul>
+            </nav>
+        </header>
         
-        <ul>
-            <li>Cafe</li>
-            <li>Azucar</li>
-            <li>Leche</li>
-            <li>Pan</li>
-            <li>Tottillas</li>
-            <li>Arroz</li>
-        </ul>
+        <aside>
+            <h1>Ejemplo 2</h1>
+            <h2>Uso de Listas</h2>
+        </aside>
         
-        <ol type="a">
-            <li>Cafe</li>
-            <li>Azucar</li>
-            <li>Leche</li>
-            <li>Pan</li>
-            <li>Tottillas</li>
-            <li>Arroz</li>
-        </ol>
+        <section>
+            <ul>
+                <li>Cafe</li>
+                <li>Azucar</li>
+                <li>Leche</li>
+                <li>Pan</li>
+                <li>Tottillas</li>
+                <li>Arroz</li>
+            </ul>
+
+            <ol type="a">
+                <li>Cafe</li>
+                <li>Azucar</li>
+                <li>Leche</li>
+                <li>Pan</li>
+                <li>Tottillas</li>
+                <li>Arroz</li>
+            </ol>
+        </section>
+        
+        <footer>
+            TechShop Derechos Reservados 2024 &COPY;
+        </footer>
         
     </body>
 </html>

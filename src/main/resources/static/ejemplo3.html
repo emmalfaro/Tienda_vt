@@ -6,15 +6,39 @@ Mi primera pagina html
     <head>
         <title>TechShop</title>
         <meta charset="UTF-8">
-    </head>
-    <body style="background-color: #ebcfda;font-family: sans-serif">
-        <a href="ejemplo2.html">&triangleleft;</a>
-        <a href="index.html">&triangleright;</a>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
         
-        <h1 style="text-align: center;background-color: #ff4b93;color: white">Ejemplo 2</h1>
-        <h2>Uso de imagenes</h2>
-        <img src="staticimg/ferrari.jpg" height="200" alt=""/>
-        <img src="https://cdn.ferrari.com/cms/network/media/img/resize/65365327f0abd70024e699ee-ferrari729151piufondo_1920x1080?" height="200" alt=""/>
+    </head>
+
+    <body>
+        
+        <header>
+            <nav class="navegacion">
+                <a class="nav-link logo" href="index.html">TechShop</a>
+                <ul class="nav-menu">
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="ejemplo2.html">Ejemplo 2</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="ejemplo3.html">Ejemplo 3</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="audio.html">Audios</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="video.html">Videos</a></li>
+                    <li class="nav-menu-item"><a class="nav-link nav-menu-link" href="iframe.html">iFrames</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <aside>
+            <h1>Ejemplo 2</h1>
+            <h2>Uso de imagenes</h2>
+        </aside>
+        
+        <section>
+            <img src="staticimg/ferrari.jpg" height="200" alt=""/>
+            <img src="https://cdn.ferrari.com/cms/network/media/img/resize/65365327f0abd70024e699ee-ferrari729151piufondo_1920x1080?" height="200" alt=""/>
+        </section>
+        
+        <footer>
+            TechShop Derechos Reservados 2024 &COPY;
+        </footer>
         
     </body>
+    
 </html>
