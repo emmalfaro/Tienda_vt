@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--
+Mi primera pagina html dinamica
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="htpp://www.thymeleaf.org">
+    
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShopito</title>
+        <meta charset="UTF-8"/>
+        
+    </head>
+    <body>
+        
+        <!-- 1 Sección para crear los tabs de la categoria -->
+        <section th:fragment="tabs" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row p-3">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pruebas/listado">[[#{pruebas.todas}]]</a>
+                        </li>
+                        <li th:each="c : ${categorias}"
+                            class="nav-item">
+                            <a class="nav-link" 
+                               th:href="@{/pruebas/listado/}+${c.idCategoria}"
+                               >[[${c.descripcion}]]</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Listado de tarjetas de productos -->
+        <section th:fragment="tarjetas">
+            <div class="container"> 
+                <div th:if='${productos != null and !productos.empty}'> <!-- condicion si productos es diferente de nulo y productos no esta vacio -->
+                    <div class="row row-cols-4 p-2"> <!-- 4 columnas para las tarjetas -->
+                        <div th:each="p : ${productos}"
+                            class="card">
+                            <div class="card-header">
+                                <h4>[[${p.descripcion}]]</h4>
+                                <figure>
+                                    <img th:src="${p.rutaImagen}" height="150"/>
+                                    <figcaption>
+                                         ₡[[${p.precio}]] ([[${p.existencias}]])
+                                         <form>
+                                             <!-- campos de informacion para el carrito -->
+                                             <input type="hidden"
+                                                    name="idProducto"
+                                                    th:value="${p.idProducto}"/>
+                                             <input type="hidden"
+                                                    name="existencias"
+                                                    th:value="${p.existencias}"/>
+                                             
+                                             <button type="button"
+                                                     onclick="addCart(this.form)"
+                                                     class="btn btn-light">
+                                                 <i class="fa-solid fa-cart-plus"></i>
+                                             </button>
+                                         </form>
+                                    </figcaption>
+                                
+                                </figure>
+                            </div>
+                            <div class="card-body">
+                                <h4>[[${p.detalle}]]</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if='${productos == null or productos.empty}'>
+                    <h4>[[#{lista.vacia}]]</h4>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3 Sección para crear los formularios que filtran los productos por precio -->
+        <section th:fragment="consultas">
+            <div class="row row-cols-3 p-2">
+                
+                 <!-- Tarjeta para consulta ampliada -->
+                <div class="card p-2">
+                    <form method="post"
+                          action="/pruebas/consultasAmpliadas">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>[[#{pruebas.ampliadas}]]</h4>
+                        </div>
+                        <div class="card-body bg-warning">
+                            <!-- bloque para poner el precio inf y precio sup -->
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.inferior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioInf"
+                                       th:value="${precioInf}"/> 
+                            </div>
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.superior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioSup"
+                                       th:value="${precioSup}"/> 
+                            </div>
+                        </div>
+                        <div class="card-footer bg-success text-white text-center">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                [[#{pruebas.ampliadas}]]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Tarjeta para consulta JPQL -->
+                <div class="card p-2">
+                    <form method="post"
+                          action="/pruebas/consultasJPQL">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>[[#{pruebas.jpql}]]</h4>
+                        </div>
+                        <div class="card-body bg-warning">
+                            <!-- bloque para poner el precio inf y precio sup -->
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.inferior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioInf"
+                                       th:value="${precioInf}"/> 
+                            </div>
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.superior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioSup"
+                                       th:value="${precioSup}"/> 
+                            </div>
+                        </div>
+                        <div class="card-footer bg-success text-white text-center">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                [[#{pruebas.jpql}]]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Tarjeta para consulta SQL -->
+                <div class="card p-2">
+                    <form method="post"
+                          action="/pruebas/consultasSQL">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>[[#{pruebas.nativo}]]</h4>
+                        </div>
+                        <div class="card-body bg-warning">
+                            <!-- bloque para poner el precio inf y precio sup -->
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.inferior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioInf"
+                                       th:value="${precioInf}"/> 
+                            </div>
+                            <div class="form-group mb-3"> 
+                                <label>[[#{pruebas.precio.superior}]]</label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="precioSup"
+                                       th:value="${precioSup}"/> 
+                            </div>
+                        </div>
+                        <div class="card-footer bg-success text-white text-center">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                [[#{pruebas.nativo}]]
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- 4 Consulta que filtra los productos por existencias -->
+        <section th:fragment="consultas">
+            <div class="row row-cols-3 p-2">
+                
+
+                <div class="card p-2">
+                    <form method="post"
+                          action="/pruebas/consultasAmpliadas2">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>Filtrar por existencias</h4>
+                        </div>
+                        <div class="card-body bg-warning">
+                            <div class="form-group mb-3"> 
+                                <label>
+                                    Existencias
+                                </label>
+                                <input class="form-control"
+                                       type="number"
+                                       name="existencias"
+                                       th:value="${existencias}"/> 
+                            </div>
+                            
+                        </div>
+                        <div class="card-footer bg-success text-white text-center">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Filtrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>
